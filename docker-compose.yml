@@ -1,0 +1,77 @@
+version: '3'
+services:
+ mongodb:
+   image: mongo:3.4.2
+   container_name: mongodb-docker
+   ports:
+   - 27018:27018
+   restart: always
+ mysql:
+   image: mysql:5.7
+   ports:
+   - 3306:3306
+   container_name: mysql-docker
+   network_mode: host
+   environment:
+     MYSQL_ROOT_PASSWORD: root
+     MYSQL_DATABASE: UserAuthenticationDB
+     MYSQL_USER: root
+     MYSQL_password: root
+ Category_service:
+   image: categoryservice-image
+   build: CategoryService/
+   restart: always
+   network_mode: host
+   container_name: categoryservice-docker
+   depends_on:
+   - mongodb
+   ports:
+   - 8083:8083
+   expose:
+   - 8083
+ Note_service:
+   image: noteservice-image
+   build: NoteService/
+   restart: always
+   network_mode: host
+   container_name: noteservice-docker
+   depends_on:
+   - mongodb
+   ports:
+   - 8082:8082
+   expose:
+   - 8082
+ Reminder_service:
+   image: reminderservice-image
+   build: ReminderService/
+   restart: always
+   network_mode: host
+   container_name: reminderservice-docker
+   depends_on:
+   - mongodb
+   ports:
+   - 8081:8081
+   expose:
+   - 8081
+ User_service:
+   image: userservice-image
+   build: UserService/
+   restart: always
+   network_mode: host
+   container_name: userservice-docker
+   depends_on:
+   - mongodb
+   ports:
+   - 8080:8080
+   expose:
+   - 8080
+ UserAuthentication_service:
+   image: userauthenticationservice-image
+   build: UserAuthentication-Service/
+   restart: always
+   network_mode: host
+   container_name: userauthenticationservice-docker
+   depends_on:
+   - mysql
+   ports:
+   - 8089:8089
