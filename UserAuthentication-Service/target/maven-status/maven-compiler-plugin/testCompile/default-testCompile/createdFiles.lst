@@ -1,0 +1,3 @@
+com\stackroute\keepnote\test\controller\UserAuthenticationControllerTest.class
+com\stackroute\keepnote\test\repository\UserAuthenticationRepositoryTest.class
+com\stackroute\keepnote\test\service\UserAuthenticationServiceTest.class
